@@ -8,7 +8,7 @@ class Supports::CourseSupport
   end
 
   def subject_of_course
-    @subjects ||= @course.subjects
+    @course_subjects ||= @course.course_subjects
   end
 
   def trainees
@@ -16,7 +16,7 @@ class Supports::CourseSupport
   end
 
   def trainee_of_course
-    @trainees ||= @course.user.trainee
+    @trainees ||= @course.users.trainee
   end
 
   def supervisors
@@ -24,6 +24,6 @@ class Supports::CourseSupport
   end
 
   def supervisor_of_course
-    @supervisors ||=  @course.user.supervisor
+    @supervisors ||=  @course.users.supervisor
   end
 end
