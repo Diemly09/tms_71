@@ -5,8 +5,5 @@
   <div class="col-xs-3 listButton">
     <%= link_to t(".edit_trainee"), edit_supervisors_user_path(user),
       class: "btn btn-success" %>
-    <%= link_to t(".delete_trainee"), supervisors_user_path(user),
-      method: :delete, data: {confirm: t("confirm")},
-      class: "btn btn-danger" %>
   </div>
 </li>

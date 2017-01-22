@@ -2,12 +2,21 @@
 
 <h1><%= t "user.my_profile" %></h1>
 
-<div class="col-md-6 col-md-offset-3">
-  <div class="center">
+<div class="col-md-12">
+  <div class="col-md-6">
     <div class="profile">
       <h3><%= @user.name %></h3></br>
       <b><%= t "email" %></b><%= @user.email %></br>
     </div>
+  </div>
+  <div class="col-md-6">
+    <% if current_user.supervisor? %>
+      <%= link_to t(".edit_trainee"), edit_supervisors_user_path,
+        class: "btn btn-success" %>
+      <%= link_to t(".delete_trainee"), supervisors_user_path,
+        method: :delete, data: {confirm: t("confirm")},
+        class: "btn btn-danger" %>
+    <% end %>
   </div>
 </div>
 <div class="col-md-12">

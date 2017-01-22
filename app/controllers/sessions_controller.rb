@@ -1,12 +1,12 @@
 class SessionsController < ApplicationController
   def new
-  end 
+  end
 
   def create
     user = User.find_by email: params[:session][:email].downcase
     if user && user.authenticate(params[:session][:password])
       log_in user
-      redirect_to user
+      redirect_to root_path
     else
       flash.now[:danger] = t "flash.login"
       render :new
