@@ -17,7 +17,7 @@ class Supervisors::CoursesController < ApplicationController
     @course = Course.new course_params
     if @course.save
       flash[:info] = t "flash.success.create_course"
-      redirect_to supervisors_courses_path
+      redirect_to supervisors_course_path @course
     else
       render :new
     end
@@ -30,7 +30,11 @@ class Supervisors::CoursesController < ApplicationController
   end
 
   def update
+    previous_status = @course.status
     if @course.update_attributes course_params
+      if previous_status == Settings.pending && @course.status == Settings.started
+        create_user_subject
+      end
       redirect_to supervisors_course_path @course
     else
       render :edit
@@ -59,5 +63,15 @@ class Supervisors::CoursesController < ApplicationController
 
   def load_supports
     @supports = Supports::CourseSupport.new course: @course
+  end
+
+  def create_user_subject
+    @course.user_courses.each do |user_course|
+      @course.course_subjects.each do |course_subject|
+        course_subject.user_subjects.create! user_id: user_course.user_id,
+          subject_id: course_subject.subject_id,
+          user_course_id: user_course.id
+      end
+    end
   end
 end

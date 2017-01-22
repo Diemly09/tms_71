@@ -12,8 +12,12 @@ Rails.application.routes.draw do
   resources :user_tasks, only: :create
 
   namespace :supervisors do
-    resources :courses
+    resources :courses do
+      resources :course_subjects
+    end
+    resources :course_subjects
     resources :subjects
+    resources :user_subjects
     resources :users
   end
 end

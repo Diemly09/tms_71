@@ -71,6 +71,8 @@ en:
     user_not_exist: "Users didn't existed"
     course_not_exist: "Course didn't existed"
     existed_subject: "Subject didn't existed"
+    existed_course: "Course didn't existed"
+    existed_course_subject: "Subject of Course didn't existed"
     success:
       create_subject: "Create subject successful!"
       create_course: "Create course successful!"
@@ -89,6 +91,8 @@ en:
       subject_not_found: "Subject didn't existed"
       task_not_found: "Task didn't existed"
       error: "Something error"
+      subject_status: "Status didn't updated"
+      subject_update: "Subject didn't updated"
 
   supervisors:
     courses:
@@ -113,6 +117,15 @@ en:
       description: "Description: "
       status: "Status: "
 
+    course_subjects:
+      find_subject: "Subject not found"
+      show:
+        init: "Init Subject"
+        start: "Start Subject"
+        finish: "Finish Subject"
+        task: "Task"
+        subject: "Subject"
+
     subjects:
       form:
         task: "Tasks: "
@@ -134,6 +147,11 @@ en:
       show:
         task: "Tasks: "
         subject: "Subject"
+        button_start: "Start Subject"
+        button_finish: "Finish Subject"
+        button_pending: "Pending Subject"
+        description: "Description: "
+
     users:
       form:
         confirmation: "Confirmation"

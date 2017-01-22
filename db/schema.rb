@@ -74,9 +74,9 @@ ActiveRecord::Schema.define(version: 20170104075433) do
     t.integer  "subject_id"
     t.datetime "start_date"
     t.datetime "end_date"
-    t.integer  "status"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.integer  "status",            default: 0
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.index ["course_subject_id"], name: "index_user_subjects_on_course_subject_id"
     t.index ["subject_id"], name: "index_user_subjects_on_subject_id"
     t.index ["user_course_id"], name: "index_user_subjects_on_user_course_id"

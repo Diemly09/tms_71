@@ -1,59 +1,56 @@
 <% provide :title, t(".subject") %>
-<h1><%= @subject.name %></h1><br>
-
+<h1><%= @course_subject.subject.name %></h1><br>
 <div class="col-md-12">
   <div class="col-md-7">
     <div class="row">  
       <section class="subject_info">
         <h4><%= t ".description" %></h4>
-        <p><%= @subject.description %></p>
-        <%= link_to t(".edit_subject"), edit_supervisors_subject_path,
-          class: "btn btn-success" %>
-        <%= link_to t(".delete_subject"), supervisors_subject_path,
-          method: :delete, data: {confirm: t("confirm")}, class: "btn btn-danger" %>
+        <p><%= @course_subject.subject.description %></p>
       </section>
     </div>
 
-    <% @user_subjects.each do |user_subject| %>
+    <% @course_subject.user_subjects.each do |user_subject| %>
       <ul class="subjects">
         <% unless user_subject.user.supervisor? %>
           <li class="col-md-12">
             <div class="col-md-8">
               <%= user_subject.user.name %>
             </div>
-            
+
             <div class="col-md-4">
               <% if user_subject.user_course.course.started? %> 
                 <%= form_for [:supervisors, user_subject] do |f| %>
                   <% if user_subject.init? %>  
                     <%= f.hidden_field :status, value: :progress %>
-                    <%=  f.submit t(".button_start"),
+                    <%=  f.submit t(".start"),
                       data: {confirm: t("confirm")}, class: "btn btn-success" %>
                   <% elsif user_subject.progress? %>
                     <%= f.hidden_field :status, value: :finished %>
-                    <%= f.submit t(".button_finish"),
+                    <%= f.submit t(".finish"),
                       data: {confirm: t("confirm")}, class: "btn btn-danger" %>
                   <% else %>
                     <%= f.hidden_field :status, value: :init %>
-                    <%= f.submit t(".button_pending"),
+                    <%= f.submit t(".init"),
                       data: {confirm: t("confirm")}, class: "btn btn-warning" %>
                   <% end %>
                 <% end %>
               <% end %>
             </div>
-          </li>
+            </li>
         <% end %> 
       </ul>
     <% end %>
   </div>
 
   <div class="col-md-5">
-    <% if @subject.tasks.any? %>
+    <% if @course_subject.subject.tasks.any? %>
       <h3><span class="label label-success">
-        <%= t ".task" %><%= @subject.tasks.count %>
-      </span></h3>
+        <%= t (".task") %>
+        </span></h3>
       <ol class="tasks">
-        <%= render @tasks %>
+        <div class="tasks">
+          <%= render @tasks %>
+        </div>
       </ol>
     <% end %>
   </div>

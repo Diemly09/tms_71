@@ -1,10 +1,17 @@
-<% provide :title, t("supervisors.course.name") %>
+<%= provide :title, t("supervisors.course.name") %>
 <div class="col-md-12">
-  <div class="col-md-6 col-md-offset-3"><h1 class="label-name"><%= @course.name %></h1></div>
-  <div class="btn-delete">
-    <%= link_to t("supervisors.course.delete"), supervisors_course_path(@course),
-      method: :delete, data: {confirm: t("confirm")},
-      class: "btn btn-danger" %>
+  <div class="col-md-3 col-md-offset-4"><h1 class="label-name"><%= @course.name %></h1></div>
+  <div class="col-md-5">
+    <div class="col-md-3 col-md-offset-4 btn-delete">
+      <%= link_to t("supervisors.course.delete"), supervisors_course_path(@course),
+        method: :delete, data: {confirm: t("confirm")},
+        class: "btn btn-danger" %>
+    </div>
+    
+    <div class="btn-delete">
+      <%= link_to t("supervisors.course.edit"), edit_supervisors_course_path(@course),
+        class: "btn btn-success" %> 
+    </div>
   </div>
 </div> 
 
@@ -43,27 +50,27 @@
 <div class="col-md-12 course-name">
   <div class="col-md-4">
     <h4><%= t "supervisors.course.subject" %></h4>
-    <ul>
-      <% @supports.subject_of_course.each do |a| %>
-        <li><%= a.name %></li>
+    <ul class="subjects">
+      <% @supports.subject_of_course.each do |course_subject| %>
+        <li><%= link_to course_subject.subject.name, [:supervisors, @course, course_subject] %></li>
       <% end %>
     </ul>
   </div>
 
   <div class="col-md-4">
     <h4><%= t "supervisors.course.trainee" %></h4>
-    <ul>
-      <% @supports.trainee_of_course.each do |a| %>
-        <li><%= a.name %></li>
+    <ul class="subjects">
+      <% @supports.trainee_of_course.each do |trainee| %>
+        <li><%= trainee.name %></li>
       <% end %>
     </ul>
   </div>
 
   <div class="col-md-4">
     <h4><%= t "supervisors.course.supervisor" %></h4>
-    <ul>
-      <% @supports.supervisor_of_course.each do |a| %>
-        <li><%= a.name %></li>
+    <ul class="subjects">
+      <% @supports.supervisor_of_course.each do |supervisor| %>
+        <li><%= supervisor.name %></li>
       <% end %>
     </ul>
   </div>

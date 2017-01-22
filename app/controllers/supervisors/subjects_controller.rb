@@ -1,14 +1,11 @@
 class Supervisors::SubjectsController < ApplicationController
   before_action :logged_in_user, :verify_supervisor
+  before_action :find_course, only: [:show]
   before_action :find_subject, except: [:index, :new, :create]
 
   def index
     @subjects = Subject.order(created_at: :desc).
       paginate page: params[:page], per_page: Settings.per_page
-  end
-
-  def show
-    @tasks = @subject.tasks
   end
 
   def new
@@ -26,15 +23,20 @@ class Supervisors::SubjectsController < ApplicationController
     end
   end
 
+  def show
+    @tasks = @subject.tasks
+    @user_subjects = @course_subject.user_subjects
+  end
+
   def edit
   end
 
-  def update
+  def update 
     if @subject.update_attributes subject_params
-      redirect_to supervisors_subject_path
     else
-      render :edit
+      flash[:danger] = t "flash.danger.subject_update"
     end
+    redirect_to supervisors_subject_path @subject 
   end
 
   def destroy
@@ -45,15 +47,23 @@ class Supervisors::SubjectsController < ApplicationController
 
   private
   def subject_params
-    params.require(:subject).permit :name, :description,
+    params.require(:subject).permit :name, :description, :status,
       tasks_attributes: [:id, :name, :description, :_destroy]
   end
 
   def find_subject
     @subject = Subject.find_by id: params[:id]
-    if @subject.nil?
+    unless @subject
       flash[:danger] = t "flash.existed_subject"
-      redirect_to supervisors_subject_path
+      redirect_to supervisors_subjects_path
+    end
+  end
+
+  def find_course
+    @course = Course.find_by id: params[:course_id]
+    unless @course
+      flash[:danger] = t "flash.existed_course"
+      redirect_to supervisors_subjects_path
     end
   end
 end
