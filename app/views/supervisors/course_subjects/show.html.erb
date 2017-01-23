@@ -14,7 +14,7 @@
         <% unless user_subject.user.supervisor? %>
           <li class="col-md-12">
             <div class="col-md-8">
-              <%= user_subject.user.name %>
+              <%= link_to user_subject.user.name, user_path(user_subject.user) %>
             </div>
 
             <div class="col-md-4">

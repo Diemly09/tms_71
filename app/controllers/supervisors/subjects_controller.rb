@@ -1,6 +1,5 @@
 class Supervisors::SubjectsController < ApplicationController
   before_action :logged_in_user, :verify_supervisor
-  before_action :find_course, only: [:show]
   before_action :find_subject, except: [:index, :new, :create]
 
   def index
@@ -25,7 +24,6 @@ class Supervisors::SubjectsController < ApplicationController
 
   def show
     @tasks = @subject.tasks
-    @user_subjects = @course_subject.user_subjects
   end
 
   def edit
@@ -55,14 +53,6 @@ class Supervisors::SubjectsController < ApplicationController
     @subject = Subject.find_by id: params[:id]
     unless @subject
       flash[:danger] = t "flash.existed_subject"
-      redirect_to supervisors_subjects_path
-    end
-  end
-
-  def find_course
-    @course = Course.find_by id: params[:course_id]
-    unless @course
-      flash[:danger] = t "flash.existed_course"
       redirect_to supervisors_subjects_path
     end
   end

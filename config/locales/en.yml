@@ -29,7 +29,7 @@ en:
       home: "Home"
       course: "Course"
       subject: "Subject"
-      trainee: "Trainee"
+      member: "Member"
       login: "Login"
 
     footer:
@@ -99,7 +99,9 @@ en:
       show:
         button_start: "Start course"
         button_finish: "Finish course"
-        button_pending: "Pending course"
+        button_init: "Init course"
+        start_date: "Start date: "
+        end_date: "End date: "
     all_courses: "All Courses"
     subject_list: "Subject List"
     trainee_list: "Trainee List"
@@ -156,10 +158,10 @@ en:
       form:
         confirmation: "Confirmation"
       index:
-        all_trainee: "All Trainee"
-        add_trainee: "+ Add Trainee"
-        edit_trainee: "Edit trainee"
-        delete_trainee: "Delete trainee"
+        all_member: "All Members"
+        add_member: "+ Add Member"
+        edit: "Edit"
+        delete: "Delete"
       new:
         new_trainee: "New Trainee"
         create_new_trainee: "Create new trainee"

@@ -1,7 +1,7 @@
 class Course < ApplicationRecord
   has_many :course_subjects, inverse_of: :course
   has_many :subjects, through: :course_subjects
-  has_many :user_courses, inverse_of: :course
+  has_many :user_courses, dependent: :destroy, inverse_of: :course
   has_many :users, through: :user_courses
 
   enum status: {init: 0, started: 1, finished: 2}

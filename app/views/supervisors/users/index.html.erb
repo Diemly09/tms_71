@@ -1,15 +1,33 @@
-<% provide :title, t(".all_trainee") %>
-<h1><%= t ".all_trainee" %></h1>
+<% provide :title, t(".all_member") %>
+<h1><%= t ".all_member" %></h1>
 
 <div class="col-xs-12 addButton">
-  <%= link_to t(".add_trainee"), new_supervisors_user_path,
+  <%= link_to t(".add_member"), new_supervisors_user_path,
     class: "btn btn-primary" %>
 </div>
 
-<div class="col-md-12">
+<div class="col-md-12 member">
   <%= will_paginate %>
-  <ul class="users">
-    <%= render @users %>
-  </ul>
+  <div class="col-md-6">
+    <h4><%= t ".trainee" %></h4>
+    <ul class="users">
+      <% @users.each do |user| %>
+        <% unless user.supervisor? %>
+          <%= render user %>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="col-md-6">
+    <h4><%= t ".supervisor" %></h4>
+    <ul class="users">
+      <% @users.each do |user| %>
+        <% if user.supervisor? %>
+          <%= render user %>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
   <%= will_paginate %>
 </div>

@@ -15,33 +15,40 @@
   </div>
 </div> 
 
-<div>
+<div class="col-md-12">
   <div class="col-md-6 description">
     <h3>
       <%= t"supervisors.course.description" %>
       <%= @course.description %>
     </h3>
   </div>
+
+  <div class="col-md-3">
+    <p>
+      <%= t ".start_date" %><span class="label label-info"><%= l @course.start_date, 
+        format: :default %></span>
+    </p>
+    <p>
+      <%= t ".end_date" %><span class="label label-info"><%= l @course.end_date, 
+        format: :default %></span>
+    </p>
+  </div>
   
-  <div class="col-md-offset-7">
+  <div class="col-md-2">
     <h4>
       <%= t"supervisors.course.status" %>
       <%= @course.status %>
     </h4>
     <%= form_for [:supervisors, @course] do |f| %>
-      <% case @course.status %>
-      <% when Settings.pending %>
+      <% if @course.init? %>
         <%= f.hidden_field :status, value: :started %>
-        <%= f.button t(".button_start"), type: :submit,
-          data: {confirm: t("confirm")}, class: "btn btn-success" %>
-      <% when Settings.started %>
+        <%= f.submit t(".button_start"), data: {confirm: t("confirm")}, class: "btn-success" %>
+      <% elsif @course.started? %>
         <%= f.hidden_field :status, value: :finished %>
-        <%= f.button t(".button_finish"), type: :submit,
-          data: {confirm: t("confirm")}, class: "btn btn-danger" %>
-      <% when Settings.finished %>
-        <%= f.hidden_field :status, value: :pending %>
-        <%= f.button t(".button_pending"), type: :submit,
-          data: {confirm: t("confirm")}, class: "btn btn-warning" %>
+        <%= f.submit t(".button_finish"), data: {confirm: t("confirm")}, class: "btn-danger" %>
+      <% else %>
+        <%= f.hidden_field :status, value: :init %>
+        <%= f.submit t(".button_init"), data: {confirm: t("confirm")}, class: "btn-warning" %>
       <% end %>
     <% end %>
   </div>
@@ -61,7 +68,9 @@
     <h4><%= t "supervisors.course.trainee" %></h4>
     <ul class="subjects">
       <% @supports.trainee_of_course.each do |trainee| %>
-        <li><%= trainee.name %></li>
+        <li>
+          <%= link_to trainee.name, user_path(trainee) %>
+        </li>
       <% end %>
     </ul>
   </div>
@@ -70,7 +79,7 @@
     <h4><%= t "supervisors.course.supervisor" %></h4>
     <ul class="subjects">
       <% @supports.supervisor_of_course.each do |supervisor| %>
-        <li><%= supervisor.name %></li>
+        <li><%= link_to supervisor.name, user_path(supervisor) %></li>
       <% end %>
     </ul>
   </div>

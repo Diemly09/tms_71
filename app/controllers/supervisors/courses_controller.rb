@@ -32,7 +32,7 @@ class Supervisors::CoursesController < ApplicationController
   def update
     previous_status = @course.status
     if @course.update_attributes course_params
-      if previous_status == Settings.pending && @course.status == Settings.started
+      if previous_status == Settings.init && @course.status == Settings.started
         create_user_subject
       end
       redirect_to supervisors_course_path @course

@@ -20,7 +20,7 @@
       <%= f.submit t("supervisors.course.create"), class: "btn btn-primary" %>
     </div>
     
-    <div class="col-md-5 col-md-offset-1">
+    <div class="col-md-2">
       <h4><span class="label label-success"><%= t ".add_subject" %></span></h4>
       <%= f.collection_check_boxes :subject_ids, @supports.subjects, :id, :name do |b| %>
         <ul><li class="checkbox-inline">
@@ -30,7 +30,9 @@
           <% end %>
           </li></ul>
       <% end %>
+    </div>
 
+    <div class="col-md-2">
       <h4><span class="label label-success"><%= t ".add_trainnee" %></span></h4>
       <%= f.collection_check_boxes :user_ids, @supports.trainees, :id, :name do |b| %>
         <ul><li class="checkbox-inline">
@@ -40,7 +42,9 @@
           <% end %>
           </li></ul>
       <% end %>
+    </div>
 
+    <div class="col-md-2">
       <h4><span class="label label-success"><%= t "users.add_supervisor" %></span></h4>
       <%= f.collection_check_boxes :user_ids, @supports.supervisors, :id, :name do |b| %>
         <ul><li class="checkbox-inline">
